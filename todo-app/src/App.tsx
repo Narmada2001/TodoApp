@@ -1,7 +1,12 @@
 import { useState } from "react";
-import type { Todo } from "./types/todo";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
+
+type Todo = {
+  id: number;
+  title: string;
+  completed: boolean;
+};
 
 const App = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -23,9 +28,9 @@ const App = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md rounded bg-white p-6 shadow">
-        <h1 className="mb-4 text-center text-2xl font-bold">To-Do App</h1>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md p-6 bg-white rounded shadow">
+        <h1 className="mb-4 text-2xl font-bold text-center">To-Do App</h1>
 
         <TodoInput onAdd={addTodo} />
 

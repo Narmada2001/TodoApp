@@ -1,4 +1,8 @@
-import type { Todo } from "../types/todo";
+type Todo = {
+  id: number;
+  title: string;
+  completed: boolean;
+};
 
 interface Props {
   todo: Todo;
