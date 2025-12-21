@@ -1,31 +1,42 @@
-import { useState } from "react";
+import React, { useState } from 'react';
+import { Plus } from 'lucide-react';
 
-interface Props {
-  onAdd: (title: string) => void;
+interface TodoInputProps {
+  onAddTodo: (title: string) => void;
 }
 
-const TodoInput = ({ onAdd }: Props) => {
-  const [title, setTitle] = useState("");
+const TodoInput: React.FC<TodoInputProps> = ({ onAddTodo }) => {
+  const [input, setInput] = useState('');
 
-  const handleAdd = () => {
-    if (!title.trim()) return;
-    onAdd(title);
-    setTitle("");
+  const handleSubmit = () => {
+    if (input.trim()) {
+      onAddTodo(input.trim());
+      setInput('');
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSubmit();
+    }
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-3 mb-8">
       <input
-        className="flex-1 px-3 py-2 border rounded"
-        placeholder="Add a task..."
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyPress={handleKeyPress}
+        placeholder="What needs to be done?"
+        className="flex-1 px-5 py-3.5 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/30 transition-all backdrop-blur-sm"
       />
       <button
-        onClick={handleAdd}
-        className="px-4 py-2 text-white bg-blue-600 rounded"
+        onClick={handleSubmit}
+        className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-7 py-3.5 rounded-xl font-semibold transition-all duration-200 flex items-center gap-2 shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 hover:scale-105 active:scale-95"
       >
-        Add
+        <Plus size={20} />
+        Add Task
       </button>
     </div>
   );
